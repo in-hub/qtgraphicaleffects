@@ -4,13 +4,23 @@
 ## qtgraphicaleffectsprivate Plugin:
 #####################################################################
 
+set(qml_files
+    "FastGlow.qml"
+)
+set_source_files_properties(FastGlow.qml PROPERTIES
+    QT_QML_SOURCE_VERSION "1.0"
+)
+
 qt_internal_add_qml_module(qtgraphicaleffectsprivate
     URI "QtGraphicalEffects.private"
     VERSION "${CMAKE_PROJECT_VERSION}"
     CLASSNAME QtGraphicalEffectsPrivatePlugin
+    PLUGIN_TARGET qtgraphicaleffectsprivate
+    NO_GENERATE_PLUGIN_SOURCE
     SOURCES
         plugin.cpp
         qgfxsourceproxy.cpp qgfxsourceproxy_p.h
+		${qml_files}
     PUBLIC_LIBRARIES
         Qt::Core
         Qt::CorePrivate
@@ -31,14 +41,3 @@ qt_internal_add_qml_module(qtgraphicaleffectsprivate
 ## Scopes:
 #####################################################################
 
-set(qml_files
-    "FastGlow.qml"
-)
-set_source_files_properties(FastGlow.qml PROPERTIES
-    QT_QML_SOURCE_VERSION "1.0"
-)
-
-qt6_target_qml_files(qtgraphicaleffectsprivate
-    FILES
-        ${qml_files}
-)

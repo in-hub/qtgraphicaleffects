@@ -4,21 +4,6 @@
 ## qtgraphicaleffectsplugin Plugin:
 #####################################################################
 
-qt_internal_add_qml_module(qtgraphicaleffectsplugin
-    URI "QtGraphicalEffects"
-    VERSION "1.${CMAKE_PROJECT_VERSION_MINOR}"
-    DESIGNER_SUPPORTED
-    CLASSNAME QtGraphicalEffectsPlugin
-    DEPENDENCIES
-        QtGraphicalEffects/private/1.0
-        QtQuick.Window/2.1
-    SOURCES
-        plugin.cpp
-    PUBLIC_LIBRARIES
-        Qt::Qml
-        Qt::Quick
-)
-
 # Resources:
 set(qtgraphicaleffectsshaders_resource_files
     "shaders_ng/brightnesscontrast.frag.qsb"
@@ -45,13 +30,6 @@ set(qtgraphicaleffectsshaders_resource_files
     "shaders_ng/radialgradient_nomask.frag.qsb"
     "shaders_ng/rectangularglow.frag.qsb"
     "shaders_ng/thresholdmask.frag.qsb"
-)
-
-qt_internal_add_resource(qtgraphicaleffectsplugin "qtgraphicaleffectsshaders"
-    PREFIX
-        "/qt-project.org/imports/QtGraphicalEffects"
-    FILES
-        ${qtgraphicaleffectsshaders_resource_files}
 )
 
 
@@ -132,10 +110,28 @@ set_source_files_properties(ThresholdMask.qml PROPERTIES
     QT_QML_SOURCE_VERSION "1.0"
 )
 
-qt6_target_qml_files(qtgraphicaleffectsplugin
-    FILES
-        ${qml_files}
+
+qt_internal_add_qml_module(qtgraphicaleffectsplugin
+    URI "QtGraphicalEffects"
+    VERSION "1.${CMAKE_PROJECT_VERSION_MINOR}"
+    DESIGNER_SUPPORTED
+    CLASSNAME QtGraphicalEffectsPlugin
+    PLUGIN_TARGET qtgraphicaleffectsplugin
+    NO_GENERATE_PLUGIN_SOURCE
+    SOURCES
+        plugin.cpp
+		${qml_files}
+    PUBLIC_LIBRARIES
+        Qt::Qml
+        Qt::Quick
 )
+qt_internal_add_resource(qtgraphicaleffectsplugin "qtgraphicaleffectsshaders"
+    PREFIX
+        "/qt-project.org/imports/QtGraphicalEffects"
+    FILES
+        ${qtgraphicaleffectsshaders_resource_files}
+)
+
 qt_internal_add_docs(qtgraphicaleffectsplugin
     doc/qtgraphicaleffects.qdocconf
 )
